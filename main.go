@@ -1,7 +1,7 @@
 package main
 
 import (
-	"RabbitMQConsumer/consumer"
+	"github.com/ShikharKannoje/RabbitMQConsumer/consumer"
 )
 
 func main() {

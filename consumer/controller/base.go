@@ -1,11 +1,12 @@
 package controller
 
 import (
-	"RabbitMQConsumer/consumer/model"
 	"encoding/json"
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/ShikharKannoje/RabbitMQConsumer/consumer/model"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
