@@ -17,6 +17,10 @@ type Server struct {
 	DB *gorm.DB
 }
 
+func (s *Server) Run(str string) {
+	fmt.Println(str)
+}
+
 func (server *Server) consumer() {
 
 	fmt.Println("\nConsumer Started")
