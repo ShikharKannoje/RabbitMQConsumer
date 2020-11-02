@@ -1,11 +1,8 @@
 package controller
 
-func (s *Server) InitializeRoutes() {
+func (s *Server) InitializeConsumer() {
 
-	// Home Route
-	s.Router.HandleFunc("/", s.ome).Methods("GET")
-
-	// Login Route
-	s.Router.HandleFunc("/app", s.app).Methods("POST")
+	// Consumer Call inside server
+	s.consumer()
 
 }
