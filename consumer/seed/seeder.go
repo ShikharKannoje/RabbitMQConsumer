@@ -1,8 +1,9 @@
 package seed
 
 import (
-	"RabbitMQConsumer/consumer/model"
 	"log"
+
+	"github.com/ShikharKannoje/RabbitMQConsumer/consumer/model"
 
 	"github.com/jinzhu/gorm"
 )

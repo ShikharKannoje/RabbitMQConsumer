@@ -1,11 +1,12 @@
 package consumer
 
 import (
-	"RabbitMQConsumer/consumer/controller"
-	"RabbitMQConsumer/consumer/seed"
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/ShikharKannoje/RabbitMQConsumer/consumer/controller"
+	"github.com/ShikharKannoje/RabbitMQConsumer/consumer/seed"
 
 	"github.com/joho/godotenv"
 )
@@ -26,5 +27,4 @@ func Run() {
 
 	seed.Load(server.DB)
 
-	server.Run(":9090")
 }
