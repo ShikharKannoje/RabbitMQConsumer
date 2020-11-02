@@ -6,21 +6,22 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
+	"github.com/lib/pq"
 )
 
 //Hotel structure
 type Hotel struct {
-	Hotelid     string   `gorm:"primary_key" json:"hotel_id"`
-	Name        string   `gorm:"size:255;not null;unique" json:"name"`
-	Country     string   `gorm:"size:255;not null" json:"country"`
-	Address     string   `gorm:"size:255;not null" json:"address"`
-	Latitude    float64  `gorm:"not null" json:"latitude"`
-	Longitude   float64  `gorm:"not null" json:"longitude"`
-	Telephone   string   `gorm:"size:15;not null" json:"telephone"`
-	Amenities   []string `gorm:"not null" json:"amenities"`
-	Description string   `gorm:"size:255;not null" json:"discription"`
-	RoomCount   int      `gorm:"not null" json:"room_count"`
-	Currency    string   `gorm:"size:5;not null" json:"currency"`
+	Hotelid     string         `gorm:"primary_key" json:"hotel_id"`
+	Name        string         `gorm:"not null;unique" json:"name"`
+	Country     string         `gorm:"not null" json:"country"`
+	Address     string         `gorm:"not null" json:"address"`
+	Latitude    float64        `gorm:"not null" json:"latitude"`
+	Longitude   float64        `gorm:"not null" json:"longitude"`
+	Telephone   string         `gorm:"not null" json:"telephone"`
+	Amenities   pq.StringArray `gorm:"not null" json:"amenities"`
+	Description string         `gorm:"not null" json:"description"`
+	RoomCount   int            `gorm:"not null" json:"room_count"`
+	Currency    string         `gorm:"not null" json:"currency"`
 }
 
 //Prepare prepares before saving into db
@@ -87,26 +88,3 @@ func (h *Hotel) SaveHotel(db *gorm.DB) (*Hotel, error) {
 	}
 	return h, nil
 }
-
-// "hotel": {
-// 	"hotel_id": "BH~46456",
-// 	"name": "Hawthorn Suites by Wyndham Eagle CO",
-// 	"country": "US",
-// 	"address": "0315 Chambers Avenue, 81631",
-// 	"latitude": 39.660193,
-// 	"longitude": -106.824123,
-// 	"telephone": "+1-970-3283000",
-// 	"amenities": [
-// 		"Business Centre",
-// 		"Fitness Room/Gym",
-// 		"Pet Friendly",
-// 		"Disabled Access",
-// 		"Air Conditioned",
-// 		"Free WIFI",
-// 		"Elevator / Lift",
-// 		"Parking"
-// 	],
-// 	"description": "Stay a while in beautiful mountain country at this Hawthorn Suites by Wyndham Eagle CO hotel, just off Interstate 70, only 6 miles from the Vail/Eagle Airport and close to skiing, golfing, Eagle River and great restaurants. Pets are welcome at this h",
-// 	"room_count": 1,
-// 	"currency": "USD"
-// }

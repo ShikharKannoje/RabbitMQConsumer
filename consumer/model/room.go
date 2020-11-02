@@ -11,10 +11,10 @@ import (
 //Room structure
 type Room struct {
 	Hotell      Hotel    `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"hotel"`
-	HotelID     string   `gorm:"size:255;not null;" json:"hotel_id"`
+	HotelID     string   `gorm:"not null;" json:"hotel_id"`
 	RoomID      string   `gorm:"primary_key" json:"room_id"`
-	Discription string   `gorm:"size:255;not null" json:"discription"`
-	Name        string   `gorm:"size:255;not null" json:"name"`
+	Description string   `gorm:"not null" json:"description"`
+	Name        string   `gorm:"not null" json:"name"`
 	Capacity    Capacity `gorm:"not null" json:"capacity"`
 }
 
@@ -29,7 +29,7 @@ func (r *Room) Prepare() {
 	r.HotelID = html.EscapeString(strings.TrimSpace(r.HotelID))
 	r.Name = html.EscapeString(strings.TrimSpace(r.Name))
 	r.RoomID = html.EscapeString(strings.TrimSpace(r.RoomID))
-	r.Discription = html.EscapeString(strings.TrimSpace(r.Discription))
+	r.Description = html.EscapeString(strings.TrimSpace(r.Description))
 }
 
 //Validate the input
@@ -44,8 +44,8 @@ func (r *Room) Validate() error {
 	if r.Name == "" {
 		return errors.New("Required Room Name")
 	}
-	if r.Discription == "" {
-		return errors.New("Required Discription")
+	if r.Description == "" {
+		return errors.New("Required Description")
 	}
 	if r.Capacity.MaxAdult == 0 && r.Capacity.ExtraChildren == 0 {
 		return errors.New("Required Room Capacity")

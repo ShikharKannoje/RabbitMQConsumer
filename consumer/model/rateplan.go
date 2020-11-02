@@ -6,22 +6,23 @@ import (
 	"strings"
 
 	"github.com/jinzhu/gorm"
+	"github.com/lib/pq"
 )
 
 //Rateplan structure
 type Rateplan struct {
-	Hotell             Hotel              `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"hotel"`
-	HotelID            string             `gorm:"size:255;not null;" json:"hotel_id"`
-	Rateplan           string             `gorm:"size:255;not null;" json:"rate_plan_id"`
-	CancellationPolicy CancellationPolicy `gorm:"not null" json:"cancellation_policy"`
-	Name               string             `gorm:"size:255;not null;" json:"name"`
-	Conditions         []string           `gorm:"not null" json:"other_conditions"`
-	MealPlan           string             `gorm:"size:255;not null;" json:"meal_plan"`
+	Hotell             Hotel                `gorm:"not null" json:"hotel"`
+	HotelID            string               `gorm:"not null;" json:"hotel_id"`
+	Rateplan           string               `gorm:"not null;" json:"rate_plan_id"`
+	CancellationPolicy []CancellationPolicy `gorm:"not null" json:"cancellation_policy"`
+	Name               string               `gorm:"not null;" json:"name"`
+	Conditions         pq.StringArray       `gorm:"not null" json:"other_conditions"`
+	MealPlan           string               `gorm:"not null;" json:"meal_plan"`
 }
 
 //CancellationPolicy structure
 type CancellationPolicy struct {
-	Type            string `gorm:"size:255;not null;" json:"type"`
+	Type            string `gorm:"not null;" json:"type"`
 	ExpireDayBefore int    `gorm:"not null;" json:"expires_days_before"`
 }
 
@@ -71,20 +72,3 @@ func (r *Rateplan) SaveRateplan(db *gorm.DB) (*Rateplan, error) {
 	}
 	return r, nil
 }
-
-// "rate_plan": {
-// 	"hotel_id": "BH~46456",
-// 	"rate_plan_id": "BAR",
-// 	"cancellation_policy": [
-// 		{
-// 			"type": "Free cancellation",
-// 			"expires_days_before": 2
-// 		}
-// 	],
-// 	"name": "BEST AVAILABLE RATE",
-// 	"other_conditions": [
-// 		"CXL BY 2 DAYS PRIOR TO ARRIVAL-FEE 1 NIGHT 2 DAYS PRIOR TO ARRIVAL",
-// 		"BEST AVAILABLE RATE"
-// 	],
-// 	"meal_plan": "Room only"
-// },
